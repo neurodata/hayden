@@ -19,8 +19,8 @@ def sample_noisy_points(X, Y):
     X, Y = X.flatten(), Y.flatten()
     n, m = len(X), len(Y)
     var = (np.var(X) * (n * (n - 1)) + np.var(Y) * (m * (m - 1)))/(n+m-2)
-    X_sampled = X + np.random.normal(0, np.sqrt(var/m), n)
-    Y_sampled = Y + np.random.normal(0, np.sqrt(var/n), m)
+    X_sampled = X + np.random.normal(0, np.sqrt(var/m**3), n)
+    Y_sampled = Y + np.random.normal(0, np.sqrt(var/n**3), m)
     return X_sampled.reshape(1, -1), Y_sampled.reshape(1, -1)
 
 def mc_iter(n, m, p, q, tilde, i=1):
@@ -67,7 +67,7 @@ def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
 
 mc_iters = 200
 ns = [25, 50, 100, 200, 400, 800]
-cs= [1,2,3,4,5,6,7,8,9,10]
+cs= [5]
 
 data = {}
 for c in cs:
