@@ -24,9 +24,9 @@ def sample_noisy_points(X, Y):
     return X_sampled.reshape(1, -1), Y_sampled.reshape(1, -1)
 
 def mc_iter(n, m, p, q, tilde, i=1):
-    X = np.random.normal(p, np.sqrt(1/n), n).reshape(1, -1)
+    X = np.random.normal(p, np.sqrt(1/n**3), n).reshape(1, -1)
 
-    Y = np.random.normal(q, np.sqrt(1/m), m).reshape(1, -1)
+    Y = np.random.normal(q, np.sqrt(1/m**3), m).reshape(1, -1)
 
     if tilde:
         X_new, Y_new = sample_noisy_points(X, Y)
@@ -76,11 +76,11 @@ for c in cs:
                                       mc_iters=mc_iters, tilde=False)
                           for i in ns]
     size_er_xhat = np.array([np.sum(i)/mc_iters for i in tests_size_er_xhat])
-    tests_size_er_xtilde = [monte_carlo(n=i, m=c*i, p=0, q=0,
-                                        mc_iters=mc_iters, tilde=True)
-                            for i in ns]
-    size_er_xtilde = np.array([np.sum(i)/mc_iters for i in tests_size_er_xtilde])
-    data[c] = (size_er_xhat, size_er_xtilde)
+#    tests_size_er_xtilde = [monte_carlo(n=i, m=c*i, p=0, q=0,
+#                                        mc_iters=mc_iters, tilde=True)
+#                            for i in ns]
+#    size_er_xtilde = np.array([np.sum(i)/mc_iters for i in tests_size_er_xtilde])
+    data[c] = (size_er_xhat)
 
-pkl.dump(data, open( "gaussians.pkl", "wb" ) )
+pkl.dump(data, open( "gaussians_xhat_c5.pkl", "wb" ) )
 
