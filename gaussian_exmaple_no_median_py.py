@@ -65,9 +65,9 @@ def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
 
     return np.array(pvals) < 0.05
 
-mc_iters = 200
-ns = [25, 50, 100, 200, 400, 800]
-cs= [5]
+mc_iters = 100
+ns = [800, 1200, 1600, 2000, 3000]
+cs= [4]
 
 data = {}
 for c in cs:
