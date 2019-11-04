@@ -65,8 +65,8 @@ def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
 
     return np.array(pvals) < 0.05
 
-mc_iters = 100
-ns = [800, 1200, 1600, 2000, 3000]
+mc_iters = 33
+ns = [4000, 4000, 4000]
 cs= [4]
 
 data = {}
@@ -81,6 +81,9 @@ for c in cs:
 #                            for i in ns]
 #    size_er_xtilde = np.array([np.sum(i)/mc_iters for i in tests_size_er_xtilde])
     data[c] = (size_er_xhat)
+    print(data[c])
 
-pkl.dump(data, open( "gaussians_xhat_c5.pkl", "wb" ) )
+data['4000'] = (data['4000'] + data['4000'])/2
+
+pkl.dump(data, open( "gaussians_xhat_c4_4000.pkl", "wb" ) )
 
