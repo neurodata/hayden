@@ -120,7 +120,7 @@ def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
     tilde: if true - use modified non-par, else non-modified
     mc_iters: number of monte-carlo-iterations
     '''
-    pool = Pool(cpu_count() - 2)
+    pool = Pool(25)
     pvals = np.zeros(mc_iters)
     
     pbar = tqdm(total=mc_iters)
@@ -149,14 +149,16 @@ def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
 
 mc_iters = 500
 ns = [25, 50, 100, 200, 400, 600, 800]
-cs = [1, 2, 5, 7, 10, 15]
+#cs = [1, 2, 5]
+cs= [7, 10, 15]
 p=0.8 # latent position
 
 
 # In[6]:
 
 
-data = {}
+#data = {}
+data = pkl.load(open('graphs_size.pkl', 'rb'))
 for c in cs:
     print(str(datetime.datetime.now()) + ' current c: {}'.format(c))
     print(str(datetime.datetime.now()) + ' unmodified non-par')

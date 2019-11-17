@@ -4,9 +4,9 @@
 # In[1]:
 
 
-get_ipython().run_line_magic('load_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
-get_ipython().run_line_magic('matplotlib', 'inline')
+#get_ipython().run_line_magic('load_ext', 'autoreload')
+#get_ipython().run_line_magic('autoreload', '2')
+#get_ipython().run_line_magic('matplotlib', 'inline')
 import time
 import datetime
 import numpy as np
@@ -97,7 +97,7 @@ def mc_iter_wrapper(i, n, m, p, q, tilde):
     return i, mc_iter(n, m, p, q, tilde, i)
 
 def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
-    pool = Pool(cpu_count() - 2)
+    pool = Pool(cpu_count() - 15)
     pvals = np.zeros(mc_iters)
     
     pbar = tqdm(total=mc_iters)
@@ -127,14 +127,14 @@ def monte_carlo(n, m, p, q, tilde=False, mc_iters=200):
 
 mc_iters = 500
 ns = [25, 50, 100, 200, 600, 800]
-cs = [1, 2, 5, 6+1, 10, 15, 20]
+cs = [6+1, 10, 15, 20]
 p=0.8
 
 
 # In[ ]:
 
 
-data = {}
+data = pkl.load(open('graphs_size.pkl', 'rb')) 
 for c in cs:
     print(str(datetime.datetime.now()) + ' current c: {}'.format(c))
     print(str(datetime.datetime.now()) + ' unmodified non-par')
@@ -148,7 +148,7 @@ for c in cs:
                             for i in ns]
     size_er_xtilde = np.array([np.sum(i)/mc_iters for i in tests_size_er_xtilde])
     data[c] = (size_er_xhat, size_er_xtilde)
-#     pkl.dump(data, open( "graphs_size.pkl", "wb" ))
+    pkl.dump(data, open( "graphs_size.pkl", "wb" ))
 
 
 # In[6]:
